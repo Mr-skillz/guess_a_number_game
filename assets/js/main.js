@@ -4,54 +4,108 @@ const $$ = document.querySelectorAll.bind(document);
 const container = $('.container');
 const demo = $('.demo');
 const circle = $('.circle');
-var ball = '<div class="circle"></div>';
+const luckyNumber = $('#luckyNumber');
+const concor = $('.concor');
+var inputCont = $('.placeChoice');
+var dsp = $('.msg');
+var your_choice = $('.your_choice');
+var timer = $('.timer');
+var winCount = $('.winCount');
 
+var msk = {
+    setting: { 
+        speed: 800, 
+        target: 10,
+        bg: 'green'
+    }
+}
+
+
+
+var win = '';
+var points = 0;
 var totalBalls = 0;
 var maxBalls = 30;
 var ballsToRoll = 1;
-var speed = 800;
+var speed = msk.setting.speed;
+
 
 var circlesArray = [];
+function msg(m){dsp.style = `display: flex; width: 100%; justify-content: center;`;dsp.innerText = m}
+
+
+circle.style.display = 'none';
 
 circle.onclick = startCounter;
 
-startCounter();
+concor.onclick = (e)=>{
+    if(luckyNumber.value != ''){
+        circle.style.display = 'flex';
+        your_choice.style.display = 'flex';
+        win = luckyNumber.value;
+        your_choice.innerText = `Your Number: ${luckyNumber.value}`;
+        startCounter();
+        inputCont.style.display = 'none';
+        dsp.style.display = 'none';
+        luckyNumber.value = '';
+        luckyNumber.focus();
+    }else{
+        msg('Please pick a number');
+    }
+    
+}
+
+
 
 function startCounter (e){
-    msc('clicker')
     totalBalls = 0;
+    var tc = 40;
 var counter = setInterval((e)=>{
-    if(totalBalls >= maxBalls){
+    timer.innerText = tc--;
+    if(tc == 0){
         window.clearInterval(counter);
-        circle.innerHTML = 'Time up';
+        msg('Time up');
+        your_choice.innerText = '';
+        circle.style.display = 'none';
+        inputCont.style.display = 'flex';
+        $('body').style.background = 'var(--primary)';
+        timer.innerText = '';
     }else{
         var randColorRed = Math.floor((Math.random() * 255) + 1);
         var randColorYellow = Math.floor((Math.random() * 255) + 1);
         var randColorBlue = Math.floor((Math.random() * 255) + 1);
         var leftToRight = Math.floor((Math.random() * 90) + 1);
+        var aim = Math.floor((Math.random() * msk.setting.target) + 1);
 
-        
-        
-
-            msc(totalBalls += ballsToRoll);
-            // circle.style = 'postion: absolute';
+            totalBalls += ballsToRoll;
             circle.style = `background: rgb(${randColorRed}, ${randColorYellow}, ${randColorBlue});
                             margin-top: ${randColorRed}px; 
                             margin-left: ${leftToRight}%`;
-            circle.innerHTML = leftToRight;
-            // circle.style = ``;
-            if(circle.style.background == 'rgb(255, 0, 0)'){
-                msc('true');
+            circle.innerHTML = aim;
+            
+            if(aim == win){
+                $('body').style.background = 'green';
+                points += 1;
+                tc = tc + 5;
+            }else{
+                $('body').style.background = 'var(--primary)';
             }
-
-            // circlesArray.push(ball);
-            // container.innerHTML = circlesArray;
-
-            msc(`rgb(${randColorRed}, ${randColorYellow}, ${randColorBlue})`);
-            msc(`margin-left: ${leftToRight}px`);
+            winCount.innerText = `Wins: ${points}`;
     }
 }, speed);
 
+
+
 }
+function theme(c){
+    if(c == '#000' || c == 'black'){
+        $('body').style.color = 'white';
+        $('body').style.background = c;
+    }else{
+        $('body').style.background = c;
+    }
+    
+}
+
 
 

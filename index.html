@@ -8,17 +8,30 @@
     <link rel="stylesheet" href="/assets/css/main.min.css">
 </head>
 <body>
-    <h1>Mr skillz D Boss</h1>
-    <h2>Random shapes</h2>
-
+    <div class="timer"></div>
+    <div class="winCount"></div>
+    <div class="header">
+        <h1>Guess a Number Game</h1>
+        <div class="scoreBoard">
+            <div class="your_choice"></div>
+        </div>
+        <div class="placeChoice">
+            <input type="number" id="luckyNumber" placeholder="Please pick a number from 1 - 100">
+            <button class="concor">Start</button><br>
+           
+        </div>
+    </div>
     <div class="container">
-        <div class="circle">10</div>
+        <div class="msg"></div>
+        <div class="circle"></div>
     </div>
 
-    <div class="demo">
+    <footer>Powered by <strong><a target="_blank" href="https://www.facebook.com/skillzcodeempire"> Skillz code empire</strong></a></footer>
 
-    </div>
-
-    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/main-min.js"></script>
+    <script>
+        msk.setting.target = 20;
+        theme('rebbacapurple');
+    </script>
 </body>
 </html>
